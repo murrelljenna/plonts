@@ -10,7 +10,11 @@ using UnityEngine;
 
 public struct NetworkInputData : INetworkInput
 {
-    public Vector3 direction;
+    public NetworkBool BUTTON_FORWARD;
+    public NetworkBool BUTTON_BACKWARD;
+    public NetworkBool BUTTON_LEFT_STRAFE;
+    public NetworkBool BUTTON_RIGHT_STRAFE;
+    public NetworkBool BUTTON_JUMP;
 }
 
 public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
@@ -46,17 +50,20 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         var data = new NetworkInputData();
 
+        if (Input.GetKeyDown(KeyCode.Space))
+            data.BUTTON_JUMP = true;
+
         if (Input.GetKey(KeyCode.W))
-            data.direction += Vector3.forward;
+            data.BUTTON_FORWARD = true;
 
         if (Input.GetKey(KeyCode.S))
-            data.direction += Vector3.back;
+            data.BUTTON_BACKWARD = true;
 
         if (Input.GetKey(KeyCode.A))
-            data.direction += Vector3.left;
+            data.BUTTON_LEFT_STRAFE = true;
 
         if (Input.GetKey(KeyCode.D))
-            data.direction += Vector3.right;
+            data.BUTTON_RIGHT_STRAFE = true;
 
         input.Set(data);
     }

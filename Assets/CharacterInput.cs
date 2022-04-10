@@ -1,10 +1,11 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
 [RequireComponent(typeof(NetworkCharacterControllerPrototype))]
-public class CharacterInput : MonoBehaviour
+public class CharacterInput : NetworkBehaviour
 {
     [SerializeField] private MouseLook m_MouseLook;
     private NetworkCharacterControllerPrototype character;
@@ -27,24 +28,24 @@ public class CharacterInput : MonoBehaviour
     {
         RotateView();
     }
-    
-    void FixedUpdate()
+    public override void FixedUpdateNetwork()
     {
-        Vector3 position = Vector3.zero;
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (GetInput(out NetworkInputData data))
         {
-            character.Jump();
+            Vector3 direction = Vector3.zero;
+            if (data.BUTTON_JUMP)
+                character.Jump();
+
+            if (data.BUTTON_FORWARD)
+                direction += transform.forward;
+            if (data.BUTTON_BACKWARD)
+                direction += -transform.forward;
+            if (data.BUTTON_LEFT_STRAFE)
+                direction += -transform.right;
+            if (data.BUTTON_RIGHT_STRAFE)
+                direction += transform.right;
+
+            character.Move(direction);
         }
-
-        if (Input.GetKey(KeyCode.W))
-            position = transform.forward;
-        if (Input.GetKey(KeyCode.D))
-            position = transform.right;
-        if (Input.GetKey(KeyCode.A))
-            position = -transform.right;
-        if (Input.GetKey(KeyCode.S))
-            position = -transform.forward;
-
-        character.Move(position);
     }
 }

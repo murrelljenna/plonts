@@ -192,6 +192,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 7170691439579913947}
   - {fileID: 993827587971725305}
+  - {fileID: 1770391359392043046}
   SimulationBehaviours: []
 --- !u!114 &7170691439579913947
 MonoBehaviour:
@@ -254,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b240456155f1c6246b694c46f6247fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   m_MouseLook:
     XSensitivity: 2
     YSensitivity: 2
