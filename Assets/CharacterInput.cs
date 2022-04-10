@@ -26,7 +26,6 @@ public class CharacterInput : MonoBehaviour
     private void Update()
     {
         RotateView();
-        Debug.Log(transform.rotation);
     }
     
     void FixedUpdate()

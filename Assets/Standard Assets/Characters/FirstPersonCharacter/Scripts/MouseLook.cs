@@ -48,7 +48,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else
             {
+                Debug.Log("Character: " + m_CharacterTargetRot);
+                Debug.Log("Camera: " + m_CameraTargetRot);
                 character.localRotation = m_CharacterTargetRot;
+                Debug.Log("Character local rotation: " + character.localRotation);
+                Debug.Log("Name: " + character.gameObject.name);
                 camera.localRotation = m_CameraTargetRot;
             }
 
