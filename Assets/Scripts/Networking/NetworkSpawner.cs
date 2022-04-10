@@ -15,6 +15,7 @@ public struct NetworkInputData : INetworkInput
 
 public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
 {
+
     private NetworkRunner _runner;
 
     [SerializeField] private NetworkPrefabRef _playerPrefab;
@@ -27,6 +28,7 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
         Vector3 spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.DefaultPlayers) * 3, 1, 0);
         runner.Spawn(_ballPrefab, new Vector3(0, 0, 0), Quaternion.identity, player);
         NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
+
         // Keep track of the player avatars so we can remove it when they disconnect
         _spawnedCharacters.Add(player, networkPlayerObject);
     }

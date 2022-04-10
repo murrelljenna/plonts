@@ -75,10 +75,16 @@ public class NetworkCharacterControllerPrototype : NetworkTransform {
   /// <param name="overrideImpulse">Optional field to override the jump impulse. If null, <see cref="jumpImpulse"/> is used.</param>
   /// </summary>
   public virtual void Jump(bool ignoreGrounded = false, float? overrideImpulse = null) {
+        Debug.Log("Fucking jump");
+        Debug.Log(IsGrounded);
+        Debug.Log("IgnoredGrounded: " + ignoreGrounded);
     if (IsGrounded || ignoreGrounded) {
+            Debug.Log("We should be jumping?");
       var newVel = Velocity;
       newVel.y += overrideImpulse ?? jumpImpulse;
+            Debug.Log(newVel.y);
       Velocity =  newVel;
+            Debug.Log(newVel);
     }
   }
 
@@ -112,10 +118,11 @@ public class NetworkCharacterControllerPrototype : NetworkTransform {
 
     moveVelocity.x = horizontalVel.x;
     moveVelocity.z = horizontalVel.z;
-
+        Debug.Log(moveVelocity);
     Controller.Move(moveVelocity * deltaTime);
 
     Velocity   = (transform.position - previousPos) * Runner.Simulation.Config.TickRate;
     IsGrounded = Controller.isGrounded;
+    Debug.Log(Velocity);
   }
 }
