@@ -37,13 +37,13 @@ public class CharacterInput : MonoBehaviour
         }
 
         if (Input.GetKey(KeyCode.W))
-            position = Vector3.forward;
+            position = transform.forward;
         if (Input.GetKey(KeyCode.D))
-            position = Vector3.right;
+            position = transform.right;
         if (Input.GetKey(KeyCode.A))
-            position = Vector3.left;
+            position = -transform.right;
         if (Input.GetKey(KeyCode.S))
-            position = Vector3.back;
+            position = -transform.forward;
 
         character.Move(position);
     }
