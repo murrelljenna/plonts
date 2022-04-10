@@ -15,6 +15,7 @@ public class CharacterInput : MonoBehaviour
         character = GetComponent<NetworkCharacterControllerPrototype>();
         m_Camera = Camera.main;
         m_MouseLook.Init(transform, m_Camera.transform);
+        m_MouseLook.clampVerticalRotation = false;
     }
 
     private void RotateView()
@@ -25,22 +26,26 @@ public class CharacterInput : MonoBehaviour
     private void Update()
     {
         RotateView();
+        Debug.Log(transform.rotation);
     }
     
     void FixedUpdate()
     {
+        Vector3 position = Vector3.zero;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             character.Jump();
         }
 
         if (Input.GetKey(KeyCode.W))
-            character.Move(Vector3.forward);
+            position = Vector3.forward;
         if (Input.GetKey(KeyCode.D))
-            character.Move(Vector3.right);
+            position = Vector3.right;
         if (Input.GetKey(KeyCode.A))
-            character.Move(Vector3.left);
+            position = Vector3.left;
         if (Input.GetKey(KeyCode.S))
-            character.Move(Vector3.back);
+            position = Vector3.back;
+
+        character.Move(position);
     }
 }
