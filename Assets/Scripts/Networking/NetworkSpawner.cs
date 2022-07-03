@@ -18,6 +18,8 @@ public struct NetworkInputData : INetworkInput
     public NetworkBool BUTTON_JUMP;
     public int VERTICAL;
     public int HORIZONTAL;
+    public int MOUSE_X;
+    public int MOUSE_Y;
 }
 
 public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
@@ -68,6 +70,9 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
         if (Input.GetKey(KeyCode.D))
             data.BUTTON_RIGHT_STRAFE = true;
+
+        data.MOUSE_X = (int)(CrossPlatformInputManager.GetAxis("Mouse X") * 100);
+        data.MOUSE_Y = (int)(CrossPlatformInputManager.GetAxis("Mouse Y") * 100);
 
         data.VERTICAL = (int)(CrossPlatformInputManager.GetAxis("Vertical") * 100);
         data.HORIZONTAL = (int)(CrossPlatformInputManager.GetAxis("Horizontal") * 100);

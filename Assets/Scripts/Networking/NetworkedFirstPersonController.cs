@@ -43,6 +43,9 @@ public class NetworkedFirstPersonController : NetworkBehaviour
     private float horizontal = 0f;
     private float vertical = 0f;
 
+    private float mouse_x = 0f;
+    private float mouse_y = 0f;
+
     // Use this for initialization
     private void Start()
     {
@@ -96,17 +99,16 @@ public class NetworkedFirstPersonController : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        Debug.Log(gameObject.name + ": About to fetch data");
         if (GetInput(out NetworkInputData data))
         {
-            Debug.Log(gameObject.name+ ": Actually getting input");
+            mouse_y = (float)data.MOUSE_Y / 100f;
+            mouse_x = (float)data.MOUSE_X / 100f;
             if (!m_Jump)
             {
                 m_Jump = data.BUTTON_JUMP;
-                if (m_Jump)
-                    Debug.Log("Jumping!");
                 horizontal = (float)data.HORIZONTAL / 100f;
                 vertical = (float)data.VERTICAL / 100f;
+
                 if (horizontal != 0)
                     Debug.Log(gameObject.name + ", horizontal:" + horizontal);
                 if (vertical != 0) 
@@ -255,7 +257,7 @@ public class NetworkedFirstPersonController : NetworkBehaviour
 
     private void RotateView()
     {
-        m_MouseLook.LookRotation(transform, m_Camera.transform);
+        m_MouseLook.LookRotation(transform, m_Camera.transform, mouse_y, mouse_x);
     }
 
 

@@ -28,13 +28,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        public void LookRotation(Transform character, Transform camera)
+        public void LookRotation(Transform character, Transform camera, float yRot, float xRot)
         {
-            float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
-            float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
+            float otherXRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
+            float otherYRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
 
-            m_CharacterTargetRot *= Quaternion.Euler (0f, yRot, 0f);
-            m_CameraTargetRot *= Quaternion.Euler (-xRot, 0f, 0f);
+            float xRotAdj = xRot * XSensitivity;
+            float yRotAdj = yRot * YSensitivity;
+
+            m_CharacterTargetRot *= Quaternion.Euler (0f, xRotAdj, 0f);
+            m_CameraTargetRot *= Quaternion.Euler (-yRotAdj, 0f, 0f);
 
             if(clampVerticalRotation)
                 m_CameraTargetRot = ClampRotationAroundXAxis (m_CameraTargetRot);
@@ -55,6 +58,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 //Debug.Log("Name: " + character.gameObject.name);
                 camera.localRotation = m_CameraTargetRot;
             }
+
+            Debug.Log("Unnetworked value for Y: " + otherYRot);
+            Debug.Log("Unnetworked value for X: " + otherXRot);
+
+            Debug.Log("Networked value for Y: " + yRotAdj);
+            Debug.Log("Networked value for X: " + xRotAdj);
 
             UpdateCursorLock();
         }

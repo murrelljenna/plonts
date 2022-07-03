@@ -26,7 +26,7 @@ public class CharacterInput : NetworkBehaviour
 
     private void RotateView()
     {
-        m_MouseLook.LookRotation(transform, m_Camera.transform);
+       // m_MouseLook.LookRotation(transform, m_Camera.transform);
     }
 
     private void Update()
