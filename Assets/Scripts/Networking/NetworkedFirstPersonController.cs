@@ -43,6 +43,7 @@ public class NetworkedFirstPersonController : NetworkBehaviour
     private float horizontal = 0f;
     private float vertical = 0f;
 
+    private Quaternion m_CharacterTargetRot;
     private float mouse_x = 0f;
     private float mouse_y = 0f;
 
@@ -50,6 +51,7 @@ public class NetworkedFirstPersonController : NetworkBehaviour
     private void Start()
     {
         m_CharacterController = GetComponent<CharacterController>();
+        m_CharacterTargetRot = m_CharacterController.transform.localRotation;
         if (m_CharacterController == null) {
             Debug.Log("We don't have a character controller");
         }
@@ -101,13 +103,16 @@ public class NetworkedFirstPersonController : NetworkBehaviour
     {
         if (GetInput(out NetworkInputData data))
         {
-            mouse_y = (float)data.MOUSE_Y / 100f;
+            mouse_y = (float)data.MOUSE_Y / 100f * 2f;
             mouse_x = (float)data.MOUSE_X / 100f;
             if (!m_Jump)
             {
                 m_Jump = data.BUTTON_JUMP;
                 horizontal = (float)data.HORIZONTAL / 100f;
                 vertical = (float)data.VERTICAL / 100f;
+
+                m_CharacterTargetRot = m_CharacterTargetRot = Quaternion.Euler(0f, mouse_y, 0f);
+                //m_CharacterController.transform.localRotation = m_CharacterTargetRot;
 
                 if (horizontal != 0)
                     Debug.Log(gameObject.name + ", horizontal:" + horizontal);
