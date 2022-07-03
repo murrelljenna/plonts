@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Fusion;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public struct NetworkInputData : INetworkInput
 {
@@ -15,6 +16,8 @@ public struct NetworkInputData : INetworkInput
     public NetworkBool BUTTON_LEFT_STRAFE;
     public NetworkBool BUTTON_RIGHT_STRAFE;
     public NetworkBool BUTTON_JUMP;
+    public int VERTICAL;
+    public int HORIZONTAL;
 }
 
 public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
@@ -24,6 +27,7 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     [SerializeField] private NetworkPrefabRef _ballPrefab;
+    [SerializeField] private GameObject clientSingleton;
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
@@ -32,7 +36,6 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
         Vector3 spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.DefaultPlayers) * 3, 1, 0);
         runner.Spawn(_ballPrefab, new Vector3(0, 0, 0), Quaternion.identity, player);
         NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
-
         // Keep track of the player avatars so we can remove it when they disconnect
         _spawnedCharacters.Add(player, networkPlayerObject);
     }
@@ -50,7 +53,7 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         var data = new NetworkInputData();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
             data.BUTTON_JUMP = true;
 
         if (Input.GetKey(KeyCode.W))
@@ -65,6 +68,9 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
         if (Input.GetKey(KeyCode.D))
             data.BUTTON_RIGHT_STRAFE = true;
 
+        data.VERTICAL = (int)(CrossPlatformInputManager.GetAxis("Vertical") * 100);
+        data.HORIZONTAL = (int)(CrossPlatformInputManager.GetAxis("Horizontal") * 100);
+        //Debug.Log("Sending: " + data.VERTICAL);
         input.Set(data);
     }
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
@@ -78,7 +84,9 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data) { }
-    public void OnSceneLoadDone(NetworkRunner runner) { }
+    public void OnSceneLoadDone(NetworkRunner runner) {
+        Instantiate(clientSingleton, Vector3.zero, Quaternion.identity);
+    }
     public void OnSceneLoadStart(NetworkRunner runner) { }
 
     async void StartGame(GameMode mode)

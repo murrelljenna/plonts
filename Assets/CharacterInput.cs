@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
-[RequireComponent(typeof(NetworkCharacterControllerPrototype))]
+[RequireComponent(typeof(CharacterController))]
 public class CharacterInput : NetworkBehaviour
 {
     [SerializeField] private MouseLook m_MouseLook;
@@ -13,6 +13,9 @@ public class CharacterInput : NetworkBehaviour
 
     void Start()
     {
+        if (!Object.HasInputAuthority)
+            return;
+
         character = GetComponent<NetworkCharacterControllerPrototype>();
         m_Camera = Camera.main;
         m_MouseLook.Init(transform, m_Camera.transform);
@@ -32,6 +35,8 @@ public class CharacterInput : NetworkBehaviour
     {
         if (GetInput(out NetworkInputData data))
         {
+            Debug.Log(gameObject.name + ": " + data.BUTTON_FORWARD);
+            //Debug.Log("GOt this NetworkInputData: " + data);
             Vector3 direction = Vector3.zero;
             if (data.BUTTON_JUMP)
                 character.Jump();
@@ -47,5 +52,10 @@ public class CharacterInput : NetworkBehaviour
 
             character.Move(direction);
         }
+    }
+
+    public void Initialize()
+    {
+        
     }
 }

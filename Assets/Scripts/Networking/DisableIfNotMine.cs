@@ -11,9 +11,8 @@ public class DisableIfNotMine : NetworkBehaviour
     [Tooltip("Checks this NetworkObject for ownership")]
     public NetworkObject toCheck;
 
-    public void Start()
+    public void Spawned()
     {
-        Debug.Log("Whatup init");
         if (!toCheck.HasInputAuthority)// || !Object.HasStateAuthority)
             toDisable.SetActive(false);
     }
