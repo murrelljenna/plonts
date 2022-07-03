@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 202949559744099208}
   - component: {fileID: 191272186013402283}
   - component: {fileID: 2615001031341517991}
-  - component: {fileID: 8517735677271280009}
+  - component: {fileID: 382317322084717914}
   m_Layer: 0
   m_Name: PlayerFacade
   m_TagString: Untagged
@@ -395,9 +395,9 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 191272186013402283}
-  - {fileID: 8517735677271280009}
-  SimulationBehaviours: []
---- !u!114 &8517735677271280009
+  SimulationBehaviours:
+  - {fileID: 382317322084717914}
+--- !u!114 &382317322084717914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -406,9 +406,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 242641836143877114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaadee62fbe2b784eb3adc18da15d62d, type: 3}
+  m_Script: {fileID: 11500000, guid: fcb99d23d90b3634caf496a3b98ef18d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  toDisable: {fileID: 0}
-  toCheck: {fileID: 2615001031341517991}
+  playerRigPrefab: {fileID: 6113973318045424944, guid: 76ebb233cf6a81e429814cad249903cb, type: 3}

@@ -11,8 +11,10 @@ public class CharacterInput : NetworkBehaviour
     private NetworkCharacterControllerPrototype character;
     private Camera m_Camera;
 
-    void Start()
+    public override void Spawned()
     {
+
+        Debug.Log(Object.HasInputAuthority);
         if (!Object.HasInputAuthority)
             return;
 

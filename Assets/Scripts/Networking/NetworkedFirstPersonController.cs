@@ -96,11 +96,15 @@ public class NetworkedFirstPersonController : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
+        Debug.Log(gameObject.name + ": About to fetch data");
         if (GetInput(out NetworkInputData data))
         {
+            Debug.Log(gameObject.name+ ": Actually getting input");
             if (!m_Jump)
             {
                 m_Jump = data.BUTTON_JUMP;
+                if (m_Jump)
+                    Debug.Log("Jumping!");
                 horizontal = (float)data.HORIZONTAL / 100f;
                 vertical = (float)data.VERTICAL / 100f;
                 if (horizontal != 0)
