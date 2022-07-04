@@ -119,4 +119,9 @@ public class NetworkCharacterControllerPrototype : NetworkTransform {
     IsGrounded = Controller.isGrounded;
 
   }
+
+    public virtual void Rotate(Vector2 rotation)
+    {
+
+    }
 }

@@ -55,30 +55,69 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
     }
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        var data = new NetworkInputData();
-
-        if (Input.GetKey(KeyCode.Space))
-            data.BUTTON_JUMP = true;
+        var frameworkInput = new NetworkInputPrototype();
 
         if (Input.GetKey(KeyCode.W))
-            data.BUTTON_FORWARD = true;
+        {
+            frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_FORWARD;
+        }
 
         if (Input.GetKey(KeyCode.S))
-            data.BUTTON_BACKWARD = true;
+        {
+            frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_BACKWARD;
+        }
 
         if (Input.GetKey(KeyCode.A))
-            data.BUTTON_LEFT_STRAFE = true;
+        {
+            frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_LEFT;
+        }
 
         if (Input.GetKey(KeyCode.D))
-            data.BUTTON_RIGHT_STRAFE = true;
+        {
+            frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_RIGHT;
+        }
 
-        data.MOUSE_X = (int)(CrossPlatformInputManager.GetAxis("Mouse X") * 100);
-        data.MOUSE_Y = (int)(CrossPlatformInputManager.GetAxis("Mouse Y") * 100);
+        if (Input.GetKey(KeyCode.Space))
+        {
+            frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_JUMP;
+        }
 
-        data.VERTICAL = (int)(CrossPlatformInputManager.GetAxis("Vertical") * 100);
-        data.HORIZONTAL = (int)(CrossPlatformInputManager.GetAxis("Horizontal") * 100);
-        //Debug.Log("Sending: " + data.VERTICAL);
-        input.Set(data);
+        if (Input.GetKey(KeyCode.C))
+        {
+            frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_CROUCH;
+        }
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_ACTION1;
+        }
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_ACTION2;
+        }
+
+        if (Input.GetKey(KeyCode.F))
+        {
+            frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_ACTION3;
+        }
+
+        if (Input.GetKey(KeyCode.G))
+        {
+            frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_ACTION4;
+        }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_RELOAD;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_FIRE;
+        }
+
+        input.Set(frameworkInput);
     }
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
