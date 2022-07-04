@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class CharacterViewHandler : NetworkBehaviour
 {
-    private const float ySensitivity = 0f;
+    private const float ySensitivity = 4f;
     private Camera maybeLocalCamera;
+    private float cameraRotation = 0f;
 
-    private void Awake()
+    public override void Spawned()
     {
         if (Object.HasInputAuthority)
         {
@@ -20,9 +21,11 @@ public class CharacterViewHandler : NetworkBehaviour
     {
         if (Object.HasInputAuthority && maybeLocalCamera != null)
         {
-            float mouseInputY = Input.GetAxis("Mouse Y") * ySensitivity;
 
-            Quaternion cameraYRotation = Quaternion.Euler(-mouseInputY, 0f, 0f);
+            cameraRotation += Input.GetAxis("Mouse Y") * ySensitivity;
+            cameraRotation = Mathf.Clamp(cameraRotation, -90, 90);
+            Debug.Log(cameraRotation);
+            Quaternion cameraYRotation = Quaternion.Euler(-cameraRotation, 0f, 0f);
 
             maybeLocalCamera.transform.localRotation = cameraYRotation;
         }

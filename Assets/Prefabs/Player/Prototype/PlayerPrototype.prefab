@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 5670587663590423956}
   - component: {fileID: 5670587663590423941}
   - component: {fileID: 8379337852045708003}
+  - component: {fileID: 3643581894541174985}
   m_Layer: 6
   m_Name: PlayerPrototype
   m_TagString: Untagged
@@ -144,6 +145,7 @@ MonoBehaviour:
   - {fileID: 5670587663590424035}
   - {fileID: 5670587663590424058}
   - {fileID: 5670587663590423941}
+  - {fileID: 3643581894541174985}
   SimulationBehaviours:
   - {fileID: 8379337852045708003}
 --- !u!114 &5670587663590424035
@@ -257,6 +259,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRigPrefab: {fileID: 6113973318045424944, guid: 76ebb233cf6a81e429814cad249903cb, type: 3}
+--- !u!114 &3643581894541174985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670587663590423814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4205ac642b8d4644d95022d6732da2d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
 --- !u!1 &5670587663590423831
 GameObject:
   m_ObjectHideFlags: 0
