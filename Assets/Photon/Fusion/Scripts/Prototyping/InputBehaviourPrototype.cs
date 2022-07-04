@@ -126,6 +126,8 @@ public struct NetworkInputPrototype : INetworkInput {
 
   public const uint BUTTON_RELOAD = 1 << 15;
 
+    public float cameraRotationX;
+
   public uint Buttons;
   public byte Weapon;
   public Angle Yaw;

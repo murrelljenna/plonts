@@ -117,6 +117,10 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
             frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_FIRE;
         }
 
+        var localView = LocalPlayer.getView();
+        if (localView != null)
+            frameworkInput.cameraRotationX = localView.getXRotation();
+
         input.Set(frameworkInput);
     }
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
