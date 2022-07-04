@@ -20,6 +20,7 @@ public struct NetworkInputData : INetworkInput
     public int HORIZONTAL;
     public int MOUSE_X;
     public int MOUSE_Y;
+    public Quaternion PLAYER_FORWARD;
 }
 
 public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks

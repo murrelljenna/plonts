@@ -30,9 +30,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public void LookRotation(Transform character, Transform camera, float yRot, float xRot)
         {
-            float otherXRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
-            float otherYRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
-
             float xRotAdj = xRot * XSensitivity;
             float yRotAdj = yRot * YSensitivity;
 
@@ -51,19 +48,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else
             {
-                //Debug.Log("Character: " + m_CharacterTargetRot);
-                //Debug.Log("Camera: " + m_CameraTargetRot);
                 character.localRotation = m_CharacterTargetRot;
-                //Debug.Log("Character local rotation: " + character.localRotation);
-                //Debug.Log("Name: " + character.gameObject.name);
                 camera.localRotation = m_CameraTargetRot;
             }
-
-            Debug.Log("Unnetworked value for Y: " + otherYRot);
-            Debug.Log("Unnetworked value for X: " + otherXRot);
-
-            Debug.Log("Networked value for Y: " + yRotAdj);
-            Debug.Log("Networked value for X: " + xRotAdj);
 
             UpdateCursorLock();
         }

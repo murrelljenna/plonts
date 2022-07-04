@@ -373,6 +373,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  _horizontal: 0
+  _vertical: 0
+  _mouse_x: 0
+  _mouse_y: 0
 --- !u!114 &2615001031341517991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,7 +392,7 @@ MonoBehaviour:
   ObjectInterest: 0
   DefaultInterestGroups: []
   DestroyWhenStateAuthorityLeaves: 0
-  AllowStateAuthorityOverride: 0
+  AllowStateAuthorityOverride: 1
   AoiPositionSource: {fileID: 0}
   Flags: 2305
   NetworkGuid:
@@ -424,8 +428,8 @@ MonoBehaviour:
   m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  InterpolationSpace: 0
+  _interpolationDataSource: 3
+  InterpolationSpace: 1
   InterpolationTarget: {fileID: 7617040221944710056}
   InterpolateErrorCorrection: 1
   InterpolatedErrorCorrectionSettings:

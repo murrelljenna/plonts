@@ -40,16 +40,38 @@ public class NetworkedFirstPersonController : NetworkBehaviour
     private float m_NextStep;
     private bool m_Jumping;
     private AudioSource m_AudioSource;
-    private float horizontal = 0f;
-    private float vertical = 0f;
+    [Networked] public int horizontal { get; set; }
+    [Networked] public int vertical { get; set; }
 
-    private Quaternion m_CharacterTargetRot;
-    private float mouse_x = 0f;
-    private float mouse_y = 0f;
+    [Networked] public Quaternion m_CharacterTargetRot
+    {
+        get; set;
+    }
+    private Quaternion m_CameraTargetRot;
+    [Networked]
+    public int mouse_x
+    {
+        get; set;
+    }
+    [Networked]
+    public int mouse_y
+    {
+        get; set;
+    }
+
+    private float intToFloat(int value)
+    {
+        return value / 100f;
+    }
 
     // Use this for initialization
     private void Start()
     {
+        mouse_x = 0;
+        mouse_y = 0;
+        horizontal = 0;
+        vertical = 0;
+
         m_CharacterController = GetComponent<CharacterController>();
         m_CharacterTargetRot = m_CharacterController.transform.localRotation;
         if (m_CharacterController == null) {
@@ -99,27 +121,47 @@ public class NetworkedFirstPersonController : NetworkBehaviour
         m_NextStep = m_StepCycle + .5f;
     }
 
+    public override void Spawned()
+    {
+        GetComponent<NetworkObject>().RequestStateAuthority();
+    }
+
     public override void FixedUpdateNetwork()
     {
         if (GetInput(out NetworkInputData data))
         {
-            mouse_y = (float)data.MOUSE_Y / 100f * 2f;
-            mouse_x = (float)data.MOUSE_X / 100f;
+            mouse_y = data.MOUSE_Y;
+            mouse_x = data.MOUSE_X;
+
             if (!m_Jump)
             {
                 m_Jump = data.BUTTON_JUMP;
-                horizontal = (float)data.HORIZONTAL / 100f;
-                vertical = (float)data.VERTICAL / 100f;
-
-                m_CharacterTargetRot = m_CharacterTargetRot = Quaternion.Euler(0f, mouse_y, 0f);
-                //m_CharacterController.transform.localRotation = m_CharacterTargetRot;
-
-                if (horizontal != 0)
-                    Debug.Log(gameObject.name + ", horizontal:" + horizontal);
-                if (vertical != 0) 
-                    Debug.Log(gameObject.name + ", vertical:" + vertical);
+                horizontal = data.HORIZONTAL;
+                vertical = data.VERTICAL;
             }
         }
+
+        if (Object.HasInputAuthority && m_CharacterController != null)
+        {
+            m_CharacterTargetRot = m_CharacterTargetRot * Quaternion.Euler(0f, intToFloat(mouse_x) * 2f, 0f);
+            Debug.Log("Setting quaternion state for " + gameObject.name + ": " + m_CharacterTargetRot);
+            m_CharacterController.transform.localRotation = m_CharacterTargetRot;
+        }
+
+        if (Object.HasStateAuthority && m_CharacterController != null)
+        {
+            Debug.Log("Setting transform for " + gameObject.name + ": " + m_CharacterTargetRot);
+            //m_CharacterController.transform.localRotation = m_CharacterTargetRot;
+        }
+
+        /*if (!Object.HasInputAuthority && m_CharacterController != null)
+        {
+            Debug.Log("Rotating");
+            m_CharacterTargetRot *= Quaternion.Euler(0f, intToFloat(mouse_x) * 2f, 0f);
+            m_CharacterController.transform.localRotation = m_CharacterTargetRot;
+        }*/
+        //m_CameraTargetRot *= Quaternion.Euler(intToFloat(mouse_y), 0f, 0f);
+        //m_Camera.transform.localRotation = m_CameraTargetRot;
     }
 
     private void FixedUpdate()
@@ -128,6 +170,9 @@ public class NetworkedFirstPersonController : NetworkBehaviour
         getSpeed(out speed);
         // always move along the camera forward as it is the direction that it being aimed at
         Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
+
+        Debug.Log(transform.forward);
+        Debug.Log(m_Input);
 
         // get a normal for the surface that is being touched to move along it
         RaycastHit hitInfo;
@@ -159,7 +204,6 @@ public class NetworkedFirstPersonController : NetworkBehaviour
 
         ProgressStepCycle(speed);
         UpdateCameraPosition(speed);
-
         m_MouseLook.UpdateCursorLock();
     }
 
@@ -242,7 +286,8 @@ public class NetworkedFirstPersonController : NetworkBehaviour
 #endif
         // set the desired speed to be walking or running
         speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
-        m_Input = new Vector2(horizontal, vertical);
+
+        m_Input = new Vector2(intToFloat(horizontal), intToFloat(vertical));
 
         // normalize input if it exceeds 1 in combined length:
         if (m_Input.sqrMagnitude > 1)
@@ -262,7 +307,8 @@ public class NetworkedFirstPersonController : NetworkBehaviour
 
     private void RotateView()
     {
-        m_MouseLook.LookRotation(transform, m_Camera.transform, mouse_y, mouse_x);
+        //if (Object.HasInputAuthority) 
+            //m_MouseLook.LookRotation(transform, m_Camera.transform, intToFloat(mouse_y), intToFloat(mouse_x));
     }
 
 
