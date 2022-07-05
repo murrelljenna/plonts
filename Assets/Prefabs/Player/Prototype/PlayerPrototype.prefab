@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   _MovementDirection: {x: 0, y: 0, z: 0}
-  TransformLocal: 0
+  TransformLocal: 1
   Speed: 6
 --- !u!136 &5670587663590423954
 CapsuleCollider:
@@ -240,9 +240,9 @@ MonoBehaviour:
     RotTeleportRadians: 1.5
   gravity: -20
   jumpImpulse: 8
-  acceleration: 10
+  acceleration: 20
   braking: 10
-  maxSpeed: 2
+  maxSpeed: 4
   rotationSpeed: 15
   _IsGrounded: 0
   _Velocity: {x: 0, y: 0, z: 0}
@@ -272,6 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  isLocal: 0
 --- !u!1 &5670587663590423831
 GameObject:
   m_ObjectHideFlags: 0
