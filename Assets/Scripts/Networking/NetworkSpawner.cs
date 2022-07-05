@@ -30,7 +30,6 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     [SerializeField] private NetworkPrefabRef _ballPrefab;
-    [SerializeField] private GameObject clientSingleton;
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
@@ -134,7 +133,7 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data) { }
     public void OnSceneLoadDone(NetworkRunner runner) {
-        Instantiate(clientSingleton, Vector3.zero, Quaternion.identity);
+        
     }
     public void OnSceneLoadStart(NetworkRunner runner) { }
 
