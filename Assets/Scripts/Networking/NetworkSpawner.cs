@@ -35,7 +35,7 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         // Create a unique position for the player
-        Vector3 spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.DefaultPlayers) * 3, 1, 0);
+        Vector3 spawnPosition = GetComponent<PlayerSpawnPointManagerPrototype>().GetNextSpawnPoint(_runner, player).position;
         //runner.Spawn(_ballPrefab, new Vector3(0, 0, 0), Quaternion.identity, player);
         NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
         // Keep track of the player avatars so we can remove it when they disconnect
