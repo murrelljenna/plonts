@@ -148,6 +148,7 @@ MonoBehaviour:
   - {fileID: 3643581894541174985}
   SimulationBehaviours:
   - {fileID: 8379337852045708003}
+  - {fileID: 27312313349161478}
 --- !u!114 &5670587663590424035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,6 +366,7 @@ GameObject:
   - component: {fileID: 5670587663590423819}
   - component: {fileID: 5670587663590423886}
   - component: {fileID: 5670587663590423892}
+  - component: {fileID: 27312313349161478}
   m_Layer: 6
   m_Name: Graphic
   m_TagString: Untagged
@@ -438,6 +440,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &27312313349161478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670587663590423853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a99cf1d7a849e44b6534ee3ecdfbdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5670587663590423855
 GameObject:
   m_ObjectHideFlags: 0
