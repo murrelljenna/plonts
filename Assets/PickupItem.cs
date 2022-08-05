@@ -38,6 +38,15 @@ public class PickupItem : MonoBehaviour
                 pickedUp = null;
             }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (pickedUp != null)
+            {
+                pickedUp.GetComponent<Rigidbody>().AddForce(transform.forward * 1500f);
+                pickedUp = null;
+            }
+        }
+
         if (pickedUp != null)
         {
             pickedUp.transform.position = target.position;
