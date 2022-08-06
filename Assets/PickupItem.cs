@@ -7,7 +7,7 @@ public class PickupItem : MonoBehaviour
 {
     private Camera camera;
 
-    private GameObject pickedUp;
+    private Pickupable pickedUp;
     private Transform target;
 
     private void Start()
@@ -29,7 +29,7 @@ public class PickupItem : MonoBehaviour
                     var hitObject = hit.collider.gameObject.GetComponent<Pickupable>();
                     if (hitObject != null)
                     {
-                        pickedUp = hitObject.gameObject;
+                        pickedUp = hitObject;
                     }
                 }
             }
@@ -42,7 +42,7 @@ public class PickupItem : MonoBehaviour
         {
             if (pickedUp != null)
             {
-                pickedUp.GetComponent<Rigidbody>().AddForce(transform.forward * 1500f);
+                pickedUp.Throw(transform);
                 pickedUp = null;
             }
         }
