@@ -42,7 +42,7 @@ public class PickupItem : MonoBehaviour
         {
             if (pickedUp != null)
             {
-                pickedUp.GetComponent<Rigidbody>().AddForce((transform.forward + transform.up) * 1500f);
+                pickedUp.GetComponent<Rigidbody>().AddForce(transform.forward * 1500f);
                 pickedUp = null;
             }
         }
