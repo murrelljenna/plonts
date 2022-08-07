@@ -127,11 +127,13 @@ public struct NetworkInputPrototype : INetworkInput {
   public const uint BUTTON_RELOAD = 1 << 15;
 
     public float cameraRotationX;
+    public float cameraRotationY;
 
   public uint Buttons;
   public byte Weapon;
   public Angle Yaw;
   public Angle Pitch;
+    public NetworkBool ePressed;
 
   public bool IsUp(uint button) {
     return IsDown(button) == false;

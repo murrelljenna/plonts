@@ -90,6 +90,15 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
             frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_ACTION1;
         }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            frameworkInput.ePressed = true;
+        }
+        else
+        {
+            frameworkInput.ePressed = false;
+        }
+
         if (Input.GetKey(KeyCode.Q))
         {
             frameworkInput.Buttons |= NetworkInputPrototype.BUTTON_ACTION2;
@@ -117,7 +126,10 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
         var localView = LocalPlayer.getView();
         if (localView != null)
+        {
             frameworkInput.cameraRotationX = localView.getXRotation();
+            frameworkInput.cameraRotationY = localView.getYRotation();
+        }
 
         input.Set(frameworkInput);
     }

@@ -5,15 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class PickupItem : MonoBehaviour
 {
-    private Camera camera;
-
-    private Pickupable pickedUp;
-    private Transform target;
+    /*private Camera camera;
 
     private void Start()
     {
         camera = GetComponent<Camera>();
-        target = transform.Find("PickupLocation");
+        
     }
 
     private void Update()
@@ -38,19 +35,8 @@ public class PickupItem : MonoBehaviour
                 pickedUp = null;
             }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (pickedUp != null)
-            {
-                pickedUp.Throw(transform);
-                pickedUp = null;
-            }
-        }
 
-        if (pickedUp != null)
-        {
-            pickedUp.transform.position = target.position;
-            pickedUp.transform.rotation = target.rotation;
-        }
-    }
+
+
+    }*/
 }

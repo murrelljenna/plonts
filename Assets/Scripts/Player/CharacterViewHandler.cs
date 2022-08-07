@@ -33,7 +33,7 @@ public class CharacterViewHandler : NetworkBehaviour
 
                 Quaternion cameraYRotation = Quaternion.Euler(-cameraRotationY, 0f, 0f);
 
-                maybeLocalCamera.transform.localRotation = cameraYRotation;
+                //maybeLocalCamera.transform.localRotation = cameraYRotation;
             }
 
             cameraRotationX += Input.GetAxis("Mouse X") * xSensitivity;
@@ -45,12 +45,17 @@ public class CharacterViewHandler : NetworkBehaviour
     {
         if (GetInput(out NetworkInputPrototype input))
         {
-            transform.localRotation = Quaternion.Euler(0f, input.cameraRotationX, 0f);
+            transform.localRotation = Quaternion.Euler(-input.cameraRotationY, input.cameraRotationX, 0f);
         }
     }
 
     public float getXRotation()
     {
         return cameraRotationX;
+    }
+
+    public float getYRotation()
+    {
+        return cameraRotationY;
     }
 }

@@ -12,5 +12,10 @@ public class PlayerRigSpawner : SimulationBehaviour, ISpawned
         {
             Instantiate(playerRigPrefab, transform);
         }
+
+        if (!Object.HasStateAuthority)
+        {
+            transform.Find("PlayerRigFacade").gameObject.SetActive(false);
+        }
     }
 }

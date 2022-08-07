@@ -13,12 +13,6 @@ public class Pickupable : MonoBehaviour
     {
         thrown = true;
         GetComponent<Rigidbody>().AddForce((from.forward + (from.up /3)) * 1500f);
-        thrownAtAndHit.AddListener(testing);
-    }
-
-    private void testing(Collider other)
-    {
-        Debug.Log(other.gameObject.name);
     }
 
     private void OnCollisionEnter(Collision collision)
