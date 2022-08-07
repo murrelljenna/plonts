@@ -1,42 +1,92 @@
+using Fusion;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
-public class PickupItem : MonoBehaviour
+public class PickupItem : NetworkBehaviour
 {
-    /*private Camera camera;
+    private List<Collider> lookingAt;
+    private GameObject player;
+
+    private Pickupable pickedUp;
+    private Transform target;
+
+    private bool cooledOff = true;
 
     private void Start()
     {
-        camera = GetComponent<Camera>();
-        
+        player = transform.parent.gameObject;
+        target = transform.Find("PickupLocation");
+        lookingAt = new List<Collider>();
     }
 
-    private void Update()
+    public override void FixedUpdateNetwork()
     {
-        Ray ray = camera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
-        RaycastHit hit;
-
-        if (Input.GetKeyDown(KeyCode.E))
-            if (pickedUp == null)
+        if (GetInput(out NetworkInputPrototype input))
+        {
+            if (input.ePressed)
             {
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                if (cooledOff)
                 {
-                    var hitObject = hit.collider.gameObject.GetComponent<Pickupable>();
-                    if (hitObject != null)
-                    {
-                        pickedUp = hitObject;
-                    }
+                    if (pickedUp == null)
+                        pickedUp = closestCollider(lookingAt)?.GetComponent<Pickupable>();
+                    else
+                        pickedUp = null;
+
+                    StartCoroutine(nameof(pickupCooloff));
                 }
             }
-            else
+
+            if (input.IsDown(NetworkInputPrototype.BUTTON_FIRE))
             {
-                pickedUp = null;
+                if (pickedUp != null)
+                {
+                    pickedUp.Throw(player.transform);
+                    pickedUp = null;
+                }
             }
+        }
 
+        if (pickedUp != null)
+        {
+            pickedUp.transform.position = target.position;
+            pickedUp.transform.rotation = target.rotation;
+        }
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<Pickupable>())
+            lookingAt.Add(other);
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<Pickupable>())
+            lookingAt.Remove(other);
+    }
 
-    }*/
+    private Collider closestCollider(List<Collider> colliders) {
+        Collider closest = null;
+        float closestDistance = float.MaxValue;
+
+        colliders.ForEach(collider =>
+        {
+            float dist = Vector3.Distance(player.transform.position, collider.transform.position);
+            if (dist < closestDistance)
+            {
+                closest = collider;
+                closestDistance = dist;
+            }
+        });
+        return closest;
+    }
+
+    private IEnumerator pickupCooloff()
+    {
+        cooledOff = false;
+        yield return new WaitForSeconds(0.2f);
+        cooledOff = true;
+    }
 }
