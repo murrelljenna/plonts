@@ -1,8 +1,11 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(NetworkTransform))]
+[RequireComponent(typeof(NetworkObject))]
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
 public class Pickupable : MonoBehaviour
