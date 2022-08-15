@@ -9,7 +9,7 @@ public class PickupItem : NetworkBehaviour
     private List<Collider> lookingAt;
     private GameObject player;
 
-    private Pickupable pickedUp;
+    public Pickupable pickedUp;
     private Transform target;
 
     private bool cooledOff = true;

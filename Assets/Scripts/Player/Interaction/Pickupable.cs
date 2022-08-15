@@ -20,7 +20,6 @@ public class Pickupable : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
         if (thrown)
         {
             thrownAtAndHit.Invoke(collision.collider);
