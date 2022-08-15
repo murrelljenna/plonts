@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2764231689860999719}
   m_Layer: 0
-  m_Name: PickupLocation
+  m_Name: HandsLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -690,3 +690,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+--- !u!114 &3752437669602837484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024689712703863395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790564aacc9d39c43bcc7b8d73dc765a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
