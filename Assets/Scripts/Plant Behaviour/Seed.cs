@@ -17,18 +17,19 @@ public class Seed : NetworkBehaviour
 
     }
 
-    private void PlantWhenThrown(Collider col)
+    private void PlantWhenThrown(Collision col)
     {
-        if (col.GetComponent<CanPlantHere>())
+        if (col.collider.GetComponent<CanPlantHere>())
         {
             Debug.Log("Hey there");
-            Plant();
+            Plant(col.GetContact(0).point);
         }
     }
 
-    private void Plant()
+    private void Plant(Vector3 location)
     {
-        Runner.Spawn(prefabToPlant, transform.position, Quaternion.identity);
+        Debug.Log(location);
+        Runner.Spawn(prefabToPlant, location, Quaternion.identity);
         Destroy(gameObject);
     }
 }
