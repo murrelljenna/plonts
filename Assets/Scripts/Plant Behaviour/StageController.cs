@@ -7,9 +7,11 @@ public class StageController : NetworkBehaviour
 {
     [Tooltip("Gameobjects representing unique phases of plant")]
     public GameObject[] stages;
-    private int stageIndex = 0;
 
-    private void Start()
+    [Networked(OnChanged = nameof(enableNewPlantState))]
+    private int stageIndex { get; set; } = 0;
+
+    public override void Spawned()
     {
         if (stages.Length < 1)
         {
@@ -24,16 +26,22 @@ public class StageController : NetworkBehaviour
 
         stages[0].SetActive(true);
 
-        LightingManager.Get().sunUp.AddListener(nextStage);
+        if (Object.HasStateAuthority)
+            LightingManager.Get().sunUp.AddListener(nextStage);
     }
 
     private void nextStage()
     {
         if (stageIndex < (stages.Length - 1))
         {
-            stages[stageIndex].SetActive(false);
             stageIndex++;
-            stages[stageIndex].SetActive(true);
         }
+    }
+
+    public static void enableNewPlantState(Changed<StageController> state)
+    {
+        var stageController = state.Behaviour;
+        stageController.stages[stageController.stageIndex - 1].SetActive(false);
+        stageController.stages[stageController.stageIndex].SetActive(true);
     }
 }
