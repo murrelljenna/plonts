@@ -18,8 +18,8 @@ public class Holdable : MonoBehaviour
         GetComponent<Pickupable>().thrownAtAndHit.AddListener(onHit);
     }
 
-    private void onHit(Collider collider)
+    private void onHit(Collision collision)
     {
-       collider.gameObject.GetComponentInChildren<PickupItem>().add(GetComponent<Pickupable>());
+       collision.collider.gameObject.GetComponentInChildren<PickupItem>().add(GetComponent<Pickupable>());
     }
 }

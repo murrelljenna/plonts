@@ -11,7 +11,6 @@ public class Seed : NetworkBehaviour
     public NetworkPrefabRef prefabToPlant;
     public override void Spawned()
     {
-        Debug.Log(name);
         if (Object.HasStateAuthority)
             GetComponent<Pickupable>().thrownAtAndHit.AddListener(PlantWhenThrown);
 
@@ -21,15 +20,13 @@ public class Seed : NetworkBehaviour
     {
         if (col.collider.GetComponent<CanPlantHere>())
         {
-            Debug.Log("Hey there");
             Plant(col.GetContact(0).point);
         }
     }
 
     private void Plant(Vector3 location)
     {
-        Debug.Log(location);
         Runner.Spawn(prefabToPlant, location, Quaternion.identity);
-        Destroy(gameObject);
+        Runner.Despawn(GetComponent<NetworkObject>());
     }
 }
