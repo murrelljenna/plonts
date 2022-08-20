@@ -1,19 +1,13 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageController : MonoBehaviour
+public class StageController : NetworkBehaviour
 {
     [Tooltip("Gameobjects representing unique phases of plant")]
     public GameObject[] stages;
     private int stageIndex = 0;
-
-    void Update()
-    {
-        //Detect when the E arrow key is pressed down
-        if (Input.GetKeyDown(KeyCode.E))
-            nextStage();
-    }
 
     private void Start()
     {
@@ -29,6 +23,8 @@ public class StageController : MonoBehaviour
         }
 
         stages[0].SetActive(true);
+
+        LightingManager.Get().sunUp.AddListener(nextStage);
     }
 
     private void nextStage()

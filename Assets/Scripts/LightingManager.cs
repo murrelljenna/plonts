@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [ExecuteAlways]
 public class LightingManager : MonoBehaviour
@@ -12,6 +13,13 @@ public class LightingManager : MonoBehaviour
 
     // Variables
     [SerializeField, Range(0, 24)] private float TimeOfDay;
+
+    const short morningTime = 6;
+    const short nightTime = 18;
+
+    public UnityEvent sunUp;
+
+    private bool rotationComplete = true;
 
     private void Update()
     {
@@ -25,6 +33,15 @@ public class LightingManager : MonoBehaviour
             TimeOfDay += Time.deltaTime;
             TimeOfDay %= 24; // clamp
             UpdateLighting(TimeOfDay / 24f);
+
+
+            if (rotationComplete && (int)TimeOfDay == morningTime)
+            {
+                sunUp.Invoke();
+                rotationComplete = false; // Lets not trigger this again till the day is over
+            }
+            else if (!rotationComplete && (int)TimeOfDay == nightTime)
+                rotationComplete = true;
         }
         else
         {
@@ -82,5 +99,10 @@ public class LightingManager : MonoBehaviour
         {
             Sun = RenderSettings.sun;
         }
+    }
+
+    public static LightingManager Get()
+    {
+        return GameObject.Find("Post-Process Volume")?.GetComponent<LightingManager>();
     }
 }
