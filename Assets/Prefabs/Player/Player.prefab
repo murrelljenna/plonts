@@ -621,12 +621,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5692196036970110120, guid: a148c3e18732ba942912b2c03001f579, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5692196036970110120, guid: a148c3e18732ba942912b2c03001f579, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.4725
       objectReference: {fileID: 0}
     - target: {fileID: 5692196036970110120, guid: a148c3e18732ba942912b2c03001f579, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.048626564
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5692196036970110120, guid: a148c3e18732ba942912b2c03001f579, type: 3}
       propertyPath: m_LocalPosition.x
@@ -690,15 +694,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
---- !u!114 &3752437669602837484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1024689712703863395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 790564aacc9d39c43bcc7b8d73dc765a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  itemHeld: 0
