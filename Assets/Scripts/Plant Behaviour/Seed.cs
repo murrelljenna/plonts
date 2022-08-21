@@ -5,6 +5,8 @@ using Fusion;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Pickupable))]
+[RequireComponent(typeof(NetworkObject))]
+[RequireComponent(typeof(NetworkTransform))]
 public class Seed : NetworkBehaviour
 {
     [Tooltip("Prefab to spawn - dirt pile + seed?")]
