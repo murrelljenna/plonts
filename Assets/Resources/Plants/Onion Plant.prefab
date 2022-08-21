@@ -117,6 +117,7 @@ MonoBehaviour:
   _interpolationDataSource: 0
   prefabToPlant:
     RawGuidValue: cf7718d5b00ff92488e54383153298ea
+  stageController: {fileID: 8945268625426736621}
 --- !u!136 &4106983912497561295
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -198,6 +199,9 @@ MonoBehaviour:
   - {fileID: 4804847713168333223}
   - {fileID: 7349101521853226017}
   - {fileID: 2073786959363598852}
+  finalStage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &2072333411588945212
 PrefabInstance:
   m_ObjectHideFlags: 0
