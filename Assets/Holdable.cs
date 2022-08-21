@@ -10,16 +10,19 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Pickupable))]
 [RequireComponent(typeof(Serializable))]
-public class Holdable : MonoBehaviour
+public class Holdable : NetworkBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    public override void Spawned()
     {
-        GetComponent<Pickupable>().thrownAtAndHit.AddListener(onHit);
+        if (Object.HasStateAuthority)
+        {
+            GetComponent<Pickupable>().thrownAtAndHit.AddListener(onHit);
+        }
     }
 
     private void onHit(Collision collision)
     {
-       collision.collider.gameObject.GetComponentInChildren<PickupItem>().add(GetComponent<Pickupable>());
+        collision.collider.gameObject.GetComponentInChildren<PickupItem>()?.add(GetComponent<Pickupable>());
     }
 }
