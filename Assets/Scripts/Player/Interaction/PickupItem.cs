@@ -37,7 +37,6 @@ public class PickupItem : NetworkBehaviour
                 if (!itemHeld)
                 {
                     add(closestCollider(lookingAt)?.GetComponent<Pickupable>());
-                    startTime = Time.time;
                 }
                 else
                 {
@@ -72,8 +71,6 @@ public class PickupItem : NetworkBehaviour
             // Set our position as a fraction of the distance between the markers.
             pickedUp.transform.position = Vector3.Lerp(pickedUp.transform.position, target.position, fractionOfJourney);
 
-            Debug.Log(pickedUp.transform.position);
-
             pickedUp.transform.rotation = target.rotation;
         }
     }
@@ -82,6 +79,8 @@ public class PickupItem : NetworkBehaviour
     {
         if (obj && !storage.hasItem())
         {
+            startTime = Time.time;
+            obj.GetComponent<Rigidbody>().useGravity = false;
             storage.add(obj.GetComponent<Serializable>().description);
             pickedUp = obj;
             itemHeld = true;
@@ -90,6 +89,7 @@ public class PickupItem : NetworkBehaviour
 
     public void drop()
     {
+        pickedUp.GetComponent<Rigidbody>().useGravity = true;
         if (storage.hasItem())
         {
             storage.clear();
