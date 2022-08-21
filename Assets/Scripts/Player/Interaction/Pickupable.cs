@@ -11,7 +11,7 @@ using UnityEngine.Events;
 public class Pickupable : MonoBehaviour
 {
     public bool thrown = false;
-    public UnityEvent<Collider> thrownAtAndHit = new UnityEvent<Collider>();
+    public UnityEvent<Collision> thrownAtAndHit = new UnityEvent<Collision>();
     public void Throw(Transform from)
     {
         thrown = true;
@@ -23,7 +23,7 @@ public class Pickupable : MonoBehaviour
 
         if (thrown)
         {
-            thrownAtAndHit.Invoke(collision.collider);
+            thrownAtAndHit.Invoke(collision);
             thrown = false;
         }
     }

@@ -1,21 +1,17 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageController : MonoBehaviour
+public class StageController : NetworkBehaviour
 {
     [Tooltip("Gameobjects representing unique phases of plant")]
     public GameObject[] stages;
-    private int stageIndex = 0;
 
-    void Update()
-    {
-        //Detect when the E arrow key is pressed down
-        if (Input.GetKeyDown(KeyCode.E))
-            nextStage();
-    }
+    [Networked(OnChanged = nameof(enableNewPlantState))]
+    private int stageIndex { get; set; } = 0;
 
-    private void Start()
+    public override void Spawned()
     {
         if (stages.Length < 1)
         {
@@ -29,15 +25,23 @@ public class StageController : MonoBehaviour
         }
 
         stages[0].SetActive(true);
+
+        if (Object.HasStateAuthority)
+            LightingManager.Get().sunUp.AddListener(nextStage);
     }
 
     private void nextStage()
     {
         if (stageIndex < (stages.Length - 1))
         {
-            stages[stageIndex].SetActive(false);
             stageIndex++;
-            stages[stageIndex].SetActive(true);
         }
+    }
+
+    public static void enableNewPlantState(Changed<StageController> state)
+    {
+        var stageController = state.Behaviour;
+        stageController.stages[stageController.stageIndex - 1].SetActive(false);
+        stageController.stages[stageController.stageIndex].SetActive(true);
     }
 }
