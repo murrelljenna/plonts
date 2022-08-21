@@ -21,7 +21,6 @@ public class PluckItem : NetworkBehaviour
                 var pickupable = interactionController.closestCollider(player.transform.position, interactionController.pluckables)?.GetComponent<Pluckable>()?.toItem();
                 if (pickupable != null)
                 {
-                    Debug.Log(pickupable.GetComponent<Rigidbody>());
                     pickupItem.add(pickupable);
                 }
             }

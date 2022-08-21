@@ -13,6 +13,8 @@ public class Pluckable : NetworkBehaviour
     {
         var obj = Runner.Spawn(prefabToPlant, transform.position, transform.rotation);
         StartCoroutine(KillMe()); // Async otherwise we can't return Pickupable
+        var audiosource = GetComponent<AudioSource>();
+        AudioSource.PlayClipAtPoint(audiosource.clip, transform.position);
         return obj.GetComponent<Pickupable>();
     }
 
