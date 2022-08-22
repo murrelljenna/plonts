@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7114036224239949606}
   - component: {fileID: 2682935336953042955}
   - component: {fileID: 3548746260759315092}
+  - component: {fileID: -8939768686173143245}
   m_Layer: 0
   m_Name: Onion Picked
   m_TagString: Untagged
@@ -196,3 +197,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   description: 
+--- !u!114 &-8939768686173143245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8576366462317657702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7556b405efaaa45a0b913f4a8dfa0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
