@@ -19,11 +19,7 @@ public class Pluckable : NetworkBehaviour
         }
         var obj = Runner.Spawn(prefabToPlant, transform.position, transform.rotation);
         StartCoroutine(KillMe()); // Async otherwise we can't return Pickupable
-        var audiosource = GetComponent<AudioSource>();
-        if (audiosource != null)
-        {
-            AudioSource.PlayClipAtPoint(audiosource.clip, transform.position);
-        }
+        PlayAudio.PlayRandomSourceOnGameobject(gameObject);
         return obj.GetComponent<Pickupable>();
     }
 
