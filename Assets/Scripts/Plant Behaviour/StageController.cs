@@ -35,6 +35,8 @@ public class StageController : NetworkBehaviour
 
     private void nextStage()
     {
+        if (!gameObject.activeInHierarchy)
+            return;
         if (stageIndex < (stages.Length - 1))
         {
             stageIndex++;

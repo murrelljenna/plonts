@@ -41,6 +41,10 @@ public class InteractionController : MonoBehaviour
 
         colliders.ForEach(collider =>
         {
+            if (collider == null)
+            {
+                return;
+            }
             float dist = Vector3.Distance(to, collider.transform.position);
             if (dist < closestDistance)
             {
