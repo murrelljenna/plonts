@@ -15,7 +15,6 @@ public class Seed : NetworkBehaviour
     {
         if (Object.HasStateAuthority)
             GetComponent<Pickupable>().thrownAtAndHit.AddListener(PlantWhenThrown);
-
     }
 
     private void PlantWhenThrown(Collision col)

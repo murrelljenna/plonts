@@ -1,12 +1,11 @@
 using Fusion;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(InteractionController))]
+[RequireComponent(typeof(Serializable))]
 public class PickupItem : NetworkBehaviour
 {
-    private List<Collider> lookingAt;
     private GameObject player;
 
     private Pickupable pickedUp;
@@ -14,21 +13,22 @@ public class PickupItem : NetworkBehaviour
     private Storage storage;
     private float startTime;
 
-    public bool itemHeld;
+    public bool itemHeld = false;
 
     private bool cooledOff = true;
     const float speed = 1.0F;
+    private InteractionController interactionController;
 
     private void Start()
     {
         player = transform.parent.gameObject;
         target = transform.Find("HandsLocation");
-        lookingAt = new List<Collider>();
         storage = new Storage();
         itemHeld = false;
+        interactionController = GetComponent<InteractionController>();
     }
 
-    public override void FixedUpdateNetwork()
+public override void FixedUpdateNetwork()
     {
         if (GetInput(out NetworkInputPrototype input))
         {
@@ -36,7 +36,7 @@ public class PickupItem : NetworkBehaviour
             {
                 if (!itemHeld)
                 {
-                    add(closestCollider(lookingAt)?.GetComponent<Pickupable>());
+                    add(interactionController.closestCollider(player.transform.position, interactionController.pickupables)?.GetComponent<Pickupable>());
                 }
                 else
                 {
@@ -99,38 +99,6 @@ public class PickupItem : NetworkBehaviour
             pickedUp = null;
         }
         itemHeld = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<Pickupable>())
-        {
-            lookingAt.Add(other);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<Pickupable>())
-        {
-            lookingAt.Remove(other);
-        }
-    }
-
-    private Collider closestCollider(List<Collider> colliders) {
-        Collider closest = null;
-        float closestDistance = float.MaxValue;
-
-        colliders.ForEach(collider =>
-        {
-            float dist = Vector3.Distance(player.transform.position, collider.transform.position);
-            if (dist < closestDistance)
-            {
-                closest = collider;
-                closestDistance = dist;
-            }
-        });
-        return closest;
     }
 
     private IEnumerator pickupCooloff()
