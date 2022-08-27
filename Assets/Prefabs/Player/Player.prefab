@@ -573,6 +573,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5670587663590423912}
     m_Modifications:
+    - target: {fileID: 240212192850496797, guid: a148c3e18732ba942912b2c03001f579, type: 3}
+      propertyPath: m_Height
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 240212192850496797, guid: a148c3e18732ba942912b2c03001f579, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 826912687750057651, guid: a148c3e18732ba942912b2c03001f579, type: 3}
       propertyPath: m_Name
       value: PlayerRigFacade
@@ -682,6 +690,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5692196036970110120, guid: a148c3e18732ba942912b2c03001f579, type: 3}
   m_PrefabInstance: {fileID: 253017109344716927}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5788136648664680255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024689712703863395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b5b26129c48a0499e917316bb6de65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pluckables: []
+  pickupables: []
 --- !u!114 &6332257238305993547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,7 +731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
---- !u!114 &5788136648664680255
+--- !u!114 &3210903920857604699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -718,6 +740,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1024689712703863395}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28b5b26129c48a0499e917316bb6de65, type: 3}
+  m_Script: {fileID: 11500000, guid: 50598390f7542cb4182054afb54611ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  description: 
