@@ -148,6 +148,8 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
         
     }
     public void OnSceneLoadStart(NetworkRunner runner) { }
+    [SerializeField]
+    public String enteredSessionName;
 
     async void StartGame(GameMode mode)
     {
@@ -159,7 +161,7 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
         await _runner.StartGame(new StartGameArgs()
         {
             GameMode = mode,
-            SessionName = "TestRoom",
+            SessionName = enteredSessionName,
             Scene = SceneManager.GetActiveScene().buildIndex,
             SceneObjectProvider = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
@@ -169,14 +171,35 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (_runner == null)
         {
-            if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
+            int xCenter = Screen.width / 2;
+            int yCenter = Screen.height / 2;
+            int buttonWidth = 200;
+            int buttonHeight = 40;
+            int padding = 10;
+            var textStyle = new GUIStyle();
+            textStyle.alignment = (TextAnchor)TextAlignment.Center;
+            var oldColor = GUI.backgroundColor;
+
+            GUI.Box(new Rect(xCenter - buttonWidth / 2 - padding, yCenter - buttonHeight - buttonHeight / 2 - padding * 2, buttonWidth + 2 * padding, buttonHeight * 3 + padding * 4 + 5), "");
+
+            if (GUI.Button(new Rect(xCenter-buttonWidth/2, yCenter - buttonHeight - padding - buttonHeight/2, buttonWidth, buttonHeight), "Host"))
             {
                 StartGame(GameMode.Host);
             }
-            if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
+            if (GUI.Button(new Rect(xCenter-buttonWidth/2, yCenter - buttonHeight/2, buttonWidth, buttonHeight), "Join"))
             {
                 StartGame(GameMode.Client);
             }
+            GUI.Label(new Rect(xCenter - buttonWidth / 2 + 40, yCenter - buttonHeight / 2 + buttonHeight + padding, buttonWidth, buttonHeight), new GUIContent("Enter a room to join:"));
+            enteredSessionName = GUI.TextField(new Rect(xCenter - buttonWidth / 2, yCenter - buttonHeight / 2 + buttonHeight + padding*3.5f, buttonWidth, buttonHeight), enteredSessionName, 64, textStyle);
+        }
+    }
+
+    public void Start()
+    {
+        if (enteredSessionName.Length == 0)
+        {
+            enteredSessionName = "TestRoom";
         }
     }
 }
