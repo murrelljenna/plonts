@@ -185,6 +185,7 @@ MonoBehaviour:
   thrownAtAndHit:
     m_PersistentCalls:
       m_Calls: []
+  collisionNoises: {fileID: 0}
 --- !u!114 &6453306985724018739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   prefabToPlant:
-    RawGuidValue: 2dbdb7cefdd545441a2a9c245747b627
+    RawGuidValue: 972e9e959463e7f4f844c5f7c154dce4
 --- !u!114 &7225155918229292774
 MonoBehaviour:
   m_ObjectHideFlags: 0
