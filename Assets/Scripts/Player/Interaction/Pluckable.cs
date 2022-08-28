@@ -20,6 +20,9 @@ public class Pluckable : NetworkBehaviour
     [Tooltip("Spawns randomly from prefabsToPlant if true. Otherwise spawns ALL items in prefabsToPlant")]
     public bool spawnRandomPrefab = false;
 
+    [Tooltip("Gameobject contains AudioSource's for when item is plucked")]
+    public GameObject pluckingNoises;
+
     public Pickupable toItem()
     {
         if ((useStageController && !stageController.ripe) || prefabsToSpawn.Length < 1)
@@ -41,7 +44,11 @@ public class Pluckable : NetworkBehaviour
         }
 
         StartCoroutine(KillMe()); // Async otherwise we can't return Pickupable
-        PlayAudio.PlayRandomSourceOnGameobject(gameObject);
+
+        if (pluckingNoises != null)
+        {
+            PlayAudio.PlayRandomSourceOnGameobject(pluckingNoises);
+        }
         return obj.GetComponent<Pickupable>();
     }
 

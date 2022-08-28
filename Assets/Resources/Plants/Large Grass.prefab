@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 2368622953093712677}
   - component: {fileID: 6266806747484492439}
   - component: {fileID: 7672238952433049130}
-  - component: {fileID: 8045385534238101309}
   m_Layer: 0
   m_Name: Large Grass
   m_TagString: Untagged
@@ -161,6 +160,7 @@ MonoBehaviour:
   stageController: {fileID: 0}
   autoPickup: 0
   spawnRandomPrefab: 1
+  pluckingNoises: {fileID: 6306411085017956563, guid: 5c51c09320f654847b916d08915a91f0, type: 3}
 --- !u!54 &6266806747484492439
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -190,16 +190,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.8053026, y: 0.920029, z: 2.1630664}
   m_Center: {x: 0, y: 0.4600145, z: 0}
---- !u!114 &8045385534238101309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4628737617886850829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 189af3188289a8d46b956380c1c6312c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionNoises: {fileID: 1151477685997569209}

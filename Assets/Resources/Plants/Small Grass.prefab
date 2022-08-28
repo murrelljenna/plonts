@@ -158,3 +158,4 @@ MonoBehaviour:
   stageController: {fileID: 0}
   autoPickup: 0
   spawnRandomPrefab: 1
+  pluckingNoises: {fileID: 6306411085017956563, guid: 5c51c09320f654847b916d08915a91f0, type: 3}
