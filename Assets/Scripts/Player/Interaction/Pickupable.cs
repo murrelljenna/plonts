@@ -12,6 +12,10 @@ public class Pickupable : MonoBehaviour
 {
     public bool thrown = false;
     public UnityEvent<Collision> thrownAtAndHit = new UnityEvent<Collision>();
+
+    [Tooltip("GameObject with collision noises attached to it")]
+    public GameObject collisionNoises;
+
     public void Throw(Transform from)
     {
         thrown = true;
@@ -25,6 +29,10 @@ public class Pickupable : MonoBehaviour
         {
             thrownAtAndHit.Invoke(collision);
             thrown = false;
+
+            if (collisionNoises != null) {
+                PlayAudio.PlayRandomSourceOnGameobject(collisionNoises);
+            }
         }
     }
 }

@@ -22,8 +22,6 @@ public class PluckItem : NetworkBehaviour
                 var pluckable = interactionController.closestCollider(player.transform.position, interactionController.pluckables)?.GetComponent<Pluckable>();
                 var pickupable = pluckable?.toItem();
 
-                Debug.Log("Pluckable: " + pluckable?.name);
-                Debug.Log("pickupable: " + pickupable?.name);
                 if (pickupable != null)
                 {
                     if (pluckable.autoPickup)
