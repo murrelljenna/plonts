@@ -117,9 +117,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  prefabToPlant:
-    RawGuidValue: cf7718d5b00ff92488e54383153298ea
+  prefabsToSpawn:
+  - RawGuidValue: cf7718d5b00ff92488e54383153298ea
   stageController: {fileID: 8945268625426736621}
+  autoPickup: 1
+  spawnRandomPrefab: 0
 --- !u!136 &4106983912497561295
 CapsuleCollider:
   m_ObjectHideFlags: 0
