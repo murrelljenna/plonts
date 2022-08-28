@@ -55,7 +55,12 @@ public class Pluckable : NetworkBehaviour
     private IEnumerator KillMe()
     {
         yield return null;
-        Runner.Despawn(GetComponent<NetworkObject>());
+        var networkObj = GetComponent<NetworkObject>();
+
+        if (networkObj != null)
+        {
+            Runner.Despawn(networkObj);
+        }
     }
 
     private void spawnRestOfItems(NetworkPrefabRef[] prefabs)
